@@ -23,8 +23,8 @@ class Search extends React.Component {
       type: 'POST',
       url: '/repos',
       dataType: 'json',
-      sucess: function(query){console.log('sucessful')}.bind(this),
-      error: function(err){console.log(err)}.bind(this),
+      sucess: function(query){console.log('sucessful')},
+      error: function(err){console.log(err)},
     })
   }
 
