@@ -7,13 +7,10 @@ let repoSchema = mongoose.Schema({
   reponame: String, 		//name
   url: String, 				//url
   forks: Number, 			//forks_count
-  watchers: Number, 		//watcher_count
+  watchers: Number, 		//watcher_countreact methods seperated by comma
   stars: Number, 			//stargazer_count
   updated_at: String, 		//updated_at
   created_at: String, 		//created_at
-
-
-
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
