@@ -11,7 +11,6 @@ class Search extends React.Component {
 
 
   onChange (e) {
-    console.log(this)
     this.setState({
       term: e.target.value
     });
@@ -19,20 +18,21 @@ class Search extends React.Component {
 
   search() {
     this.props.onSearch(this.state.term);
-    // $.ajax({
-    //   type: 'POST',
-    //   url: 'http://localHost:3000',               //check here for error
-    //   dataType: 'json',
-    //   sucess: function(){console.log('sucess')}.bind(this),
-    //   error: function(){console.log('not a sucess')}.bind(this),
-    // })
+    var query = this.state.term
+    $.ajax({
+      type: 'POST',
+      url: '/repos',
+      dataType: 'json',
+      sucess: function(query){console.log('sucessful')}.bind(this),
+      error: function(err){console.log(err)}.bind(this),
+    })
   }
 
   render() {
     return (<div>
       <h4>Add more repos!</h4>
       Enter a github username: <input value={this.state.terms} onChange={this.onChange.bind(this)}/> 
-      <button onClick={this.search}> Add Repos </button>
+      <button onClick={this.search.bind(this)}> Add Repos </button>
     </div>) 
   }
 }
