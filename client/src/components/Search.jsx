@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 class Search extends React.Component {
   constructor(props) {
@@ -7,6 +8,8 @@ class Search extends React.Component {
       term: ''
     }
   }
+
+  
 
   onChange (e) {
     this.setState({
