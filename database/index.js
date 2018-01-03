@@ -22,18 +22,18 @@ let repoSchema = mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 let save = (/*the body of an individual repo*/) => {
- //  var tempRepo = new Repo {
- //    aurtor:     owner.login,
- //    id:         id,
- //    reponame:   name,
- //    url:        url,
- //    forks:      forks_count,
- //    watchers:   watcher_count,
- //    stars:      stargazer_count,
- //    updated_at: updated_at,
- //    created_at: created_at,
- //  };
-console.log('hi')
+  // var tempRepo = new Repo( {
+  //   aurtor:     owner.login,
+  //   id:         id,
+  //   reponame:   name,
+  //   url:        url,
+  //   forks:      forks_count,
+  //   watchers:   watcher_count,
+  //   stars:      stargazer_count,
+  //   updated_at: updated_at,
+  //   created_at: created_at,
+  // });
+//console.log(Repo)
  //  //if  tempRepo.id exists
  //    //if updated_at is more recent than existing repo
  //      //udpate/replace existing repo
