@@ -18,7 +18,6 @@ app.post('/repos', function (req, res) {
 
 
 	getReposByUsername.getReposByUsername(req.body.userName, saverFunc, function(repos) {
-		console.log('SF: ', saverFunc)
 
 		repos.forEach(function(repo) {
 			var tempObj = {

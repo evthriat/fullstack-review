@@ -15,9 +15,7 @@ let getReposByUsername = (username, cb, callback) => {
   request(options, function(err, res, body) {
     if (!err && res.statusCode === 200) {
       var info = JSON.parse(body);
-        //console.log(info)
         callback(info, cb);
-      //console.log();
     }
   })
   //console.log('url: ', options.url)

@@ -11,9 +11,9 @@ let repoSchema = mongoose.Schema({
   author: String, 			//owner.login
   id: Number, 				  //owner.id
   repo_name: String, 		//name
-  html_url: String, 				  //url
+  html_url: String, 		//url
   forks: Number, 			  //forks_count
-  watchers: Number, 		//watcher_countreact methods seperated by comma
+  watchers: Number, 		//watcher_count
   stars: Number, 			  //stargazer_count
   updated_at: String, 	//updated_at
   created_at: String, 	//created_at
@@ -22,11 +22,17 @@ let repoSchema = mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 let saverFunc = (tempObj) => {
-  var tempRepo = new Repo(tempObj);
-   tempRepo.save(function(err, tempObj) {
-    if(err) {
-      return console.error(err);
-    };
+  let repoId = tempObj.id;
+  let query = {id: repoId}
+  Repo.find(query, function(err, arrExists) {
+    if(!arrExists.length){
+      var tempRepo = new Repo(tempObj);
+       tempRepo.save(function(err, tempObj) {
+        if(err) {
+          return console.error(err);
+        };
+      })
+     }
   })
     console.log('saved');
   
