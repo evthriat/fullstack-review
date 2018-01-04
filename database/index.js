@@ -36,14 +36,14 @@ let saverFunc = (tempObj) => {
   })
     console.log('saved');
 }
-
+//refactor to take a query sort argument so you can have multiple ways to sort
 let getTopTwentyFive = (callback) => {
 
   var query = Repo.find();
  
   query.sort({watchers: -1});
   query.limit(25);
-
+  
   query.exec(function(err, topTwentyFive) {
     if(err) {
       console.log(err)

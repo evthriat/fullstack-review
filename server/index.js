@@ -2,17 +2,34 @@ const bodyParser = require('body-parser')
 const express = require('express');
 const {saverFunc, getTopTwentyFive} = require('../database/index.js');
 const getReposByUsername = require('../helpers/github.js');
+const EventEmitter = require("events").EventEmitter
 let app = express();
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
+let topResults = new EventEmitter();
 
+topResults.on('update', function() {
+	console.log(topResults)
+	app.post('/', function(req, res) {
+		console.log('also Hi!')
+		req.status(200).send(JSON.stringify(topResults))
+	})
+})
 
+app.get('/repos', function (req, res) {
+	getTopTwentyFive(function(top) {
+		topResults.data = top;
+		topResults.emit('update')
+		//console.log('these are the topResults', topResults)
+		//console.log('top twentyfive: ', top)
+	});
+	res.status(200).send('success');
+});
 
 app.post('/repos', function (req, res) {
 
-	res.status(200).send('successful');
 
 	getReposByUsername.getReposByUsername(req.body.userName, saverFunc.saverFunct, function(repos) {
 
@@ -33,15 +50,7 @@ app.post('/repos', function (req, res) {
 			saverFunc(tempObj);
 		})
 	});
-
-});
-
-app.get('/repos', function (req, res) {
-
-	getTopTwentyFive(function(top) {
-		console.log('top twentyfive: ', top)
-	});
-	res.status(200).send('success');
+	res.status(200).send(JSON.stringify(JSON.stringify(topResults)));
 });
 
 let port = 1128;
