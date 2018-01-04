@@ -35,31 +35,22 @@ let saverFunc = (tempObj) => {
      }
   })
     console.log('saved');
-  
-
-
-
-
-
-
-  
-  // var tempRepo = new Repo( {
-  //   author:     owner.login,
-  //   id:         id,
-  //   reponame:   name,
-  //   url:        url,
-  //   forks:      forks_count,
-  //   watchers:   watcher_count,
-  //   stars:      stargazer_count,
-  //   updated_at: updated_at,
-  //   created_at: created_at,
-  // });
-//console.log(Repo)
- //  //if  tempRepo.id exists
- //    //if updated_at is more recent than existing repo
- //      //udpate/replace existing repo
- //    //else ignore
 }
 
+let getTopTwentyFive = (callback) => {
+
+  var query = Repo.find();
+ 
+  query.sort({watchers: -1});
+  query.limit(25);
+
+  query.exec(function(err, topTwentyFive) {
+    if(err) {
+      console.log(err)
+    }
+    callback(topTwentyFive);
+  })
+}
+module.exports.getTopTwentyFive = getTopTwentyFive;
 module.exports.saverFunc = saverFunc;
 

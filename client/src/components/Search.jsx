@@ -25,7 +25,7 @@ class Search extends React.Component {
       url: 'http://localhost:1128/repos',
       contentType: 'application/json',
       data: JSON.stringify(data),
-      success: function(query){console.log(query)},
+      success: function(repoList){console.log(repoList)},
       error: function(err){console.log(err)},
     })
   }

@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser')
 const express = require('express');
-const saverFunc = require('../database/index.js').saverFunc;
+const {saverFunc, getTopTwentyFive} = require('../database/index.js');
 const getReposByUsername = require('../helpers/github.js');
 let app = express();
 
@@ -12,14 +12,12 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', function (req, res) {
 
-	res.status(200).send('sucessful');
-	//console.log('body: ', JSON.stringify(req.body.userName))
+	res.status(200).send('successful');
 
-
-
-	getReposByUsername.getReposByUsername(req.body.userName, saverFunc, function(repos) {
+	getReposByUsername.getReposByUsername(req.body.userName, saverFunc.saverFunct, function(repos) {
 
 		repos.forEach(function(repo) {
+
 			var tempObj = {
 					    author:     repo.owner.login,
 					    id:         repo.id,
@@ -31,27 +29,19 @@ app.post('/repos', function (req, res) {
 					    updated_at: repo.updated_at,
 					    created_at: repo.created_at,
 						};
-			//if(/* repo already exists or hasn't been updated */) {
-				//console.log('saver function: ', saverFunc)
-				saverFunc(tempObj);
-				
-			//}
+
+			saverFunc(tempObj);
 		})
 	});
-	//console.log('repos: ', repos);
 
-
-
-
-  // TODO - your code here!
-  // This route should take the github username provided
-  // and get the repo information from the github API, then
-  // save the repo information in the database
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+
+	getTopTwentyFive(function(top) {
+		console.log('top twentyfive: ', top)
+	});
+	res.status(200).send('success');
 });
 
 let port = 1128;

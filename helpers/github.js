@@ -10,18 +10,12 @@ let getReposByUsername = (username, cb, callback) => {
       'Authorization': `token ${config.TOKEN}`
     }
   };
-  // // TODO - Use the request module to request repos for a specific
-  // // user from the github API
   request(options, function(err, res, body) {
     if (!err && res.statusCode === 200) {
       var info = JSON.parse(body);
         callback(info, cb);
     }
   })
-  //console.log('url: ', options.url)
-  // The options object has been provided to help you out, 
-  // but you'll have to fill in the URL
-
 }
 
 module.exports.getReposByUsername = getReposByUsername;
