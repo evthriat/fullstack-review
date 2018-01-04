@@ -41,7 +41,7 @@ let getTopTwentyFive = (callback) => {
 
   var query = Repo.find();
  
-  query.sort({watchers: -1});
+  query.sort({watchers: 1});
   query.limit(25);
   
   query.exec(function(err, topTwentyFive) {

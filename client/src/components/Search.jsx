@@ -5,7 +5,8 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      term: ''
+      term: '',
+      topRepos: null,
     };
   }
 
@@ -19,16 +20,22 @@ class Search extends React.Component {
     this.props.onSearch(this.state.term);
     var query = this.state.term
     var data = {'userName': query}
+    var context = this;
     console.log(query)
     $.ajax({
       type: 'POST',
       url: 'http://localhost:1128/repos',
       contentType: 'application/json',
       data: JSON.stringify(data),
-      success: function(repoList){console.log(repoList)},
+      success: function(repoList){
+                                  context.setState({topRepos: JSON.parse(repoList)}); 
+                                  console.log(JSON.parse(repoList))
+                                },
       error: function(err){console.log(err)},
     })
   }
+
+
 
   render() {
     return (<div>
