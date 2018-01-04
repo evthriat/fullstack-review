@@ -8,10 +8,10 @@ db.once('open', function() {
 })
 //-----------------
 let repoSchema = mongoose.Schema({
-  aurtor: String, 			//owner.login
+  author: String, 			//owner.login
   id: Number, 				  //owner.id
-  reponame: String, 		//name
-  url: String, 				  //url
+  repo_name: String, 		//name
+  html_url: String, 				  //url
   forks: Number, 			  //forks_count
   watchers: Number, 		//watcher_countreact methods seperated by comma
   stars: Number, 			  //stargazer_count
@@ -21,9 +21,24 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/*the body of an individual repo*/) => {
+let saverFunc = (tempObj) => {
+  var tempRepo = new Repo(tempObj);
+   tempRepo.save(function(err, tempObj) {
+    if(err) {
+      return console.error(err);
+    };
+  })
+    console.log('saved');
+  
+
+
+
+
+
+
+  
   // var tempRepo = new Repo( {
-  //   aurtor:     owner.login,
+  //   author:     owner.login,
   //   id:         id,
   //   reponame:   name,
   //   url:        url,
@@ -38,13 +53,7 @@ let save = (/*the body of an individual repo*/) => {
  //    //if updated_at is more recent than existing repo
  //      //udpate/replace existing repo
  //    //else ignore
- // tempRepo.save(function(err, tempRepo) {
- //  if(err) {
- //    return console.error(err);
- //  };
- //  console.log('saved');
- //  } 
 }
 
-module.exports.save = save;
+module.exports.saverFunc = saverFunc;
 

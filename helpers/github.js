@@ -1,7 +1,7 @@
 const request = require('request');
 const config = require('../config.js');
 
-let getReposByUsername = (username) => {
+let getReposByUsername = (username, cb, callback) => {
   
   let options = {
     url: `https://api.github.com/users/${username}/repos`,
@@ -15,10 +15,8 @@ let getReposByUsername = (username) => {
   request(options, function(err, res, body) {
     if (!err && res.statusCode === 200) {
       var info = JSON.parse(body);
-      info.forEach(function(repo) {
-        console.log(info[repo].id);
-
-      })
+        //console.log(info)
+        callback(info, cb);
       //console.log();
     }
   })
